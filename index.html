@@ -28,6 +28,12 @@
     await msalInstance.initialize();
 
     await msalInstance.handleRedirectPromise();
+    console.log("REDIRECT HANDLED");
+
+const accounts = msalInstance.getAllAccounts();
+
+console.log("ACCOUNTS FOUND:");
+console.log(accounts);
 
     const accounts = msalInstance.getAllAccounts();
 
