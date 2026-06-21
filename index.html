@@ -11,7 +11,6 @@
 
 <script src="https://unpkg.com/@azure/msal-browser/lib/msal-browser.min.js"></script>
 
-
 <script>
 (async () => {
 
@@ -20,22 +19,28 @@
             clientId: "7a405a92-f548-4f7e-87dc-b2cf3c4a6bd4",
             authority: "https://login.microsoftonline.com/42f7676c-f455-423c-82f6-dc2d99791af7",
             redirectUri: "https://sumanputhadi9342.github.io/AI_Overhead_Management_2026/"
+        },
+        cache: {
+            cacheLocation: "localStorage"
         }
     };
 
-    const msalInstance = new msal.PublicClientApplication(msalConfig);
+    const msalInstance =
+        new msal.PublicClientApplication(msalConfig);
 
     await msalInstance.initialize();
 
-    await msalInstance.handleRedirectPromise();
+    const response =
+        await msalInstance.handleRedirectPromise();
+
     console.log("REDIRECT HANDLED");
+    console.log(response);
 
-const accounts = msalInstance.getAllAccounts();
+    const accounts =
+        msalInstance.getAllAccounts();
 
-console.log("ACCOUNTS FOUND:");
-console.log(accounts);
-
-    const accounts = msalInstance.getAllAccounts();
+    console.log("ACCOUNTS FOUND:");
+    console.log(accounts);
 
     if (accounts.length > 0) {
 
@@ -45,19 +50,31 @@ console.log(accounts);
         console.log("USER LOGGED IN");
         console.log(accounts[0]);
 
+    } else {
+
+        document.getElementById("status").innerText =
+            "Not signed in";
+
     }
 
-    document.getElementById("loginBtn").onclick = async () => {
+    const loginBtn =
+        document.getElementById("loginBtn");
 
-        await msalInstance.loginRedirect({
-            scopes: [
-                "User.Read",
-                "Files.Read",
-                "Sites.Read.All"
-            ]
-        });
+    if (loginBtn) {
 
-    };
+        loginBtn.onclick = async () => {
+
+            await msalInstance.loginRedirect({
+                scopes: [
+                    "User.Read",
+                    "Files.Read",
+                    "Sites.Read.All"
+                ]
+            });
+
+        };
+
+    }
 
 })();
 </script>
