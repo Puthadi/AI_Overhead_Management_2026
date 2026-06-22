@@ -4,10 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🤖 SAP Management Accounting – AI Agents &amp; Assistants | June 2026</title>
-  
-
-
-<script src="https://unpkg.com/@azure/msal-browser/lib/msal-browser.min.js"></script>
+  <script src="https://unpkg.com/@azure/msal-browser/lib/msal-browser.min.js"></script>
 
 <script>
 (async () => {
@@ -16,7 +13,7 @@
         auth: {
             clientId: "7a405a92-f548-4f7e-87dc-b2cf3c4a6bd4",
             authority: "https://login.microsoftonline.com/42f7676c-f455-423c-82f6-dc2d99791af7",
-            redirectUri: "https://sumanputhadi9342.github.io/AI_Overhead_Management_2026/"
+            redirectUri: window.location.origin + window.location.pathname
         },
         cache: {
             cacheLocation: "localStorage"
@@ -28,54 +25,33 @@
 
     await msalInstance.initialize();
 
-    const response =
-        await msalInstance.handleRedirectPromise();
-
-    console.log("REDIRECT HANDLED");
-    console.log(response);
+    await msalInstance.handleRedirectPromise();
 
     const accounts =
         msalInstance.getAllAccounts();
 
-    console.log("ACCOUNTS FOUND:");
-    console.log(accounts);
+    console.log("ACCOUNTS:", accounts);
 
     if (accounts.length > 0) {
 
         document.getElementById("status").innerText =
             "Signed in as: " + accounts[0].username;
 
-        console.log("USER LOGGED IN");
-        console.log(accounts[0]);
-
-    } else {
-
-        document.getElementById("status").innerText =
-            "Not signed in";
-
     }
 
-    const loginBtn =
-        document.getElementById("loginBtn");
-
-    if (loginBtn) {
-
-        loginBtn.onclick = async () => {
+    document.getElementById("loginBtn").onclick =
+        async () => {
 
             await msalInstance.loginRedirect({
-                scopes: [
-                    "User.Read",
-                    "Files.Read",
-                    "Sites.Read.All"
-                ]
+                scopes: ["User.Read"]
             });
 
         };
 
-    }
-
 })();
 </script>
+
+
 
   <style>
 
@@ -940,6 +916,7 @@
 <body>
 <button id="loginBtn">Request SharePoint Access</button>
 <div id="status">Not signed in</div>
+
 <!-- ═══════════════════════ GLOBAL HEADER ═══════════════════════ -->
 <header class="sap-global-header">
   <div class="logo-wordmark">
